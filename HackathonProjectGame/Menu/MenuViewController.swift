@@ -9,6 +9,29 @@ import UIKit
 
 class MenuViewController: UIViewController {
     
+    let levelData: [DeviceJson] = [
+        DeviceJson(id: 0, name: "boiler", level: 1, price: 4569, levelUpDevices: [
+            DeviceJson(id: 0, name: "boiler", level: 2, price: 45690, levelUpDevices: []),
+            DeviceJson(id: 0, name: "boiler", level: 2, price: 456900, levelUpDevices: []),
+            DeviceJson(id: 0, name: "boiler", level: 2, price: 456999, levelUpDevices: [])
+        ]),
+        DeviceJson(id: 0, name: "wash", level: 1, price: 2898, levelUpDevices: [
+            DeviceJson(id: 0, name: "wash", level: 2, price: 45690, levelUpDevices: []),
+            DeviceJson(id: 0, name: "wash", level: 2, price: 456900, levelUpDevices: []),
+            DeviceJson(id: 0, name: "wash", level: 2, price: 456999, levelUpDevices: [])
+        ]),
+        DeviceJson(id: 0, name: "fridge", level: 1, price: 5699, levelUpDevices: [
+            DeviceJson(id: 0, name: "fridge", level: 2, price: 45690, levelUpDevices: []),
+            DeviceJson(id: 0, name: "fridge", level: 2, price: 456900, levelUpDevices: []),
+            DeviceJson(id: 0, name: "fridge", level: 2, price: 456999, levelUpDevices: [])
+        ]),
+        DeviceJson(id: 0, name: "lamp", level: 1, price: 534, levelUpDevices: [
+            DeviceJson(id: 0, name: "lamp", level: 2, price: 45690, levelUpDevices: []),
+            DeviceJson(id: 0, name: "lamp", level: 2, price: 456900, levelUpDevices: []),
+            DeviceJson(id: 0, name: "lamp", level: 2, price: 456999, levelUpDevices: [])
+        ])
+    ]
+    
     private let cellId = String(describing: MenuCell.self)
     private let apiLink = "https://e402-37-73-14-251.ngrok-free.app"
     private let apiDevice = "/api/levels"
@@ -97,31 +120,16 @@ extension MenuViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-//        if collectionView == contentCollection {
-//            let cellModel = model[indexPath.row]
-//            didSelectStaffItem(cellModel: cellModel)
-//        } else if collectionView == filterButtonsCollection {
-//            if isLocked && indexPath.row == 0 {
-//                IAPStaffManager.shared.openStaffSub(style: .unlockContentProduct,
-//                                                    onViewController: self,
-//                                                    callback: {[weak self] in
-//                    guard let self else { return }
-//                    self.isLocked = !IAPStaffManager.shared.productBought.contains(.unlockContentProduct) && StaffConfigurations.subscriptionEnable
-//                    self.activeCategoriesNames = self.categories[indexPath.row]
-//                    self.filterModel()
-//                    self.filterButtonsCollection.reloadData()
-//                })
-//            } else {
-//                activeCategoriesNames = categories[indexPath.row]
-//                filterModel()
-//                filterButtonsCollection.reloadData()
-//            }
-//        }
-        
-        self.navigationController?.pushViewController(levelViewControllers[indexPath.row], animated: true)
-        
-//        print("\(menuList[indexPath.row].name)")
+        self.navigationController?.pushViewController(getViewController(forLevel: indexPath.row), animated: true)
+    }
+    
+    private func getViewController(forLevel level: Int) -> UIViewController {
+        switch level {
+        case 1:
+            Level1ViewController(data: levelData)
+        default:
+            Level1ViewController(data: levelData)
+        }
     }
 }
 
@@ -129,7 +137,7 @@ extension MenuViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = (menuCollectionView.frame.width - 16) / 2
+        let size = (menuCollectionView.frame.width - 16) / 4
         return CGSize(width: size, height: size)
     }
     
@@ -146,7 +154,6 @@ extension MenuViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// Define the structure to parse the response
 struct MenuJson: Codable {
     let id: Int
     let name: String
