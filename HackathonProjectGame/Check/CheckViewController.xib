@@ -4,12 +4,13 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CheckViewController" customModule="HackathonProjectGame" customModuleProvider="target">
             <connections>
+                <outlet property="checkImageView" destination="mA2-o3-1EX" id="RT4-CJ-S55"/>
+                <outlet property="costLinesStackView" destination="5Sy-uD-Ste" id="FuX-hp-UTj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,23 +20,53 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mA2-o3-1EX">
-                    <rect key="frame" x="59" y="0.0" width="734" height="372"/>
+                    <rect key="frame" x="79" y="0.0" width="714" height="393"/>
                 </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k6j-5X-Gdp">
+                    <rect key="frame" x="59" y="8" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="g0b-ay-ZOB"/>
+                        <constraint firstAttribute="width" secondItem="k6j-5X-Gdp" secondAttribute="height" multiplier="1:1" id="osB-Lt-CX0"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" image="xmark.circle" catalog="system"/>
+                    <buttonConfiguration key="configuration" style="plain" image="xmark.circle" catalog="system"/>
+                    <connections>
+                        <action selector="checkButtonAction:" destination="-1" eventType="touchUpInside" id="QVa-xA-oJN"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Квитанція" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NzK-Q4-SyN">
+                    <rect key="frame" x="109" y="55" width="684" height="32.333333333333343"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Sy-uD-Ste">
+                    <rect key="frame" x="211.33333333333334" y="135.33333333333337" width="443.33333333333326" height="212.66666666666663"/>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="mA2-o3-1EX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="6rx-Gb-WXK"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="mA2-o3-1EX" secondAttribute="bottom" id="U06-pI-HRQ"/>
+                <constraint firstItem="5Sy-uD-Ste" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.52" id="0GP-2g-EHE"/>
+                <constraint firstItem="k6j-5X-Gdp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="4P7-7v-7Nx"/>
+                <constraint firstItem="mA2-o3-1EX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="6rx-Gb-WXK"/>
+                <constraint firstAttribute="bottom" secondItem="mA2-o3-1EX" secondAttribute="bottom" id="U06-pI-HRQ"/>
+                <constraint firstItem="k6j-5X-Gdp" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="Vs7-ZB-rJO"/>
+                <constraint firstItem="NzK-Q4-SyN" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="55" id="ZLK-UK-NGJ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="5Sy-uD-Ste" secondAttribute="bottom" constant="24" id="fUD-fJ-TLz"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mA2-o3-1EX" secondAttribute="trailing" id="fnI-mt-rA2"/>
+                <constraint firstItem="5Sy-uD-Ste" firstAttribute="centerX" secondItem="NzK-Q4-SyN" secondAttribute="centerX" constant="-18" id="gXE-3A-s6t"/>
+                <constraint firstItem="NzK-Q4-SyN" firstAttribute="leading" secondItem="k6j-5X-Gdp" secondAttribute="trailing" id="o5d-eI-Qlx"/>
                 <constraint firstItem="mA2-o3-1EX" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ow3-KM-iGa"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="NzK-Q4-SyN" secondAttribute="trailing" id="x5B-1l-K0a"/>
+                <constraint firstItem="5Sy-uD-Ste" firstAttribute="top" secondItem="NzK-Q4-SyN" secondAttribute="bottom" constant="48" id="z3x-9M-I7G"/>
             </constraints>
             <point key="canvasLocation" x="121" y="20"/>
         </view>
     </objects>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="xmark.circle" catalog="system" width="128" height="123"/>
     </resources>
 </document>

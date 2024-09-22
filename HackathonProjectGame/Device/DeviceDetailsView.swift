@@ -24,21 +24,24 @@ class DeviceDetailsView: UIView {
     }
     
     
-    func configure(_ data: DeviceJson) {
+    func configure(_ data: DeviceJson, _ type: DeviceType) {
         infoStackView.removeAllArrangedSubviews()
         // Add labels or rows to infoStackView (as an example)
         let label1 = UILabel()
-        label1.text = "Detail \(data.name)"
+        label1.text = "\(data.name)"
+        label1.numberOfLines = 0
         label1.textColor = .white
         label1.textAlignment = .center
         
         let label2 = UILabel()
-        label2.text = "Detail \(data.level) level"
+        label2.text = "\(data.powerConsumption)Bт/год"
+        label1.numberOfLines = 0
         label2.textColor = .white
         label2.textAlignment = .center
         
         let label3 = UILabel()
-        label3.text = "Detail \(data.price)$"
+        label3.text = "\(data.price)$"
+        label1.numberOfLines = 0
         label3.textColor = .white
         label3.textAlignment = .center
         
@@ -46,7 +49,7 @@ class DeviceDetailsView: UIView {
         infoStackView.addArrangedSubview(label2)
         infoStackView.addArrangedSubview(label3)
         
-        imageView.image = UIImage(named: "\(data.name)IconLevel\(data.level)")
+        imageView.image = UIImage(named: "\(data.name)")
     }
     
     private func setupView() {
@@ -66,7 +69,7 @@ class DeviceDetailsView: UIView {
         // Setup imageView
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(resource: .washIconLevel1)//UIImage(systemName: "photo") // Placeholder image
+        imageView.image = UIImage()//UIImage(systemName: "photo") // Placeholder image
         
         // Setup infoStackView for detail rows
         infoStackView.axis = .vertical

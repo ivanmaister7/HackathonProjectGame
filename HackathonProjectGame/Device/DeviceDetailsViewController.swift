@@ -6,20 +6,40 @@
 //
 
 import UIKit
+enum DeviceType {
+    case lamp, boiler, wash, fridge
+    
+    init(_ elem: Int) {
+        switch elem {
+        case 0:
+            self = .lamp
+        case 1:
+            self = .wash
+        case 2:
+            self = .fridge
+        case 3:
+            self = .boiler
+        default:
+            self = .lamp
+        }
+    }
+}
 
 class DeviceDetailsViewController: UIViewController {
     
+    private var deviceType: DeviceType = .lamp
     private let cellId = String(describing: DeviceDetailsViewCollectionViewCell.self)
     private var newDevicesData: [DeviceJson] = []
-    private var currentDeviceData: DeviceJson = DeviceJson(id: 0, name: "", level: 0, price: 0, levelUpDevices: [])
-    private var onBuyAction = {}
+    private var currentDeviceData: DeviceJson = DeviceJson(id: 0, name: "", level: 0, price: 0, powerConsumption: 34, levelUpDevices: [])
+    private var onBuyAction: (Int) -> () = { _ in }
 
     @IBOutlet weak var devicesNewStackView: UICollectionView!
     @IBOutlet weak var deviceCurrentLevelInfoView: DeviceDetailsView!
     
-    convenience init(currentDeviceData: DeviceJson, newDevicesData: [DeviceJson], onBuyAction: @escaping () -> ()) {
+    convenience init(currentDeviceType: DeviceType, currentDeviceData: DeviceJson, newDevicesData: [DeviceJson], onBuyAction: @escaping (Int) -> ()) {
         self.init()
         self.currentDeviceData = currentDeviceData
+        self.deviceType = currentDeviceType
         self.newDevicesData = newDevicesData
         self.onBuyAction = onBuyAction
     }
@@ -29,7 +49,7 @@ class DeviceDetailsViewController: UIViewController {
 
         self.view.backgroundColor = .menuBlue.withAlphaComponent(0.7)
         
-        deviceCurrentLevelInfoView.configure(currentDeviceData)
+        deviceCurrentLevelInfoView.configure(currentDeviceData, deviceType)
         
         self.devicesNewStackView.dataSource = self
         self.devicesNewStackView.delegate = self
@@ -52,13 +72,15 @@ extension DeviceDetailsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = devicesNewStackView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DeviceDetailsViewCollectionViewCell
         let cellModel = newDevicesData[indexPath.row]
-        cell.configure(cellModel)
+        cell.configure(cellModel, deviceType)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.onBuyAction()
+        self.onBuyAction(indexPath.row)
+        level2isOpen += 1
+        
         self.dismiss(animated: true)
         
 //        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)

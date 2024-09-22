@@ -19,6 +19,7 @@ class MenuCell: UICollectionViewCell {
         "questionmark.circle.dashed",
     ]
     
+    @IBOutlet weak var isBlockedShadow: UIView!
     @IBOutlet weak var menuCellIcon: UIImageView!
     @IBOutlet weak var menuCellNameLabel: UILabel!
     
@@ -30,7 +31,10 @@ class MenuCell: UICollectionViewCell {
         self.menuCellNameLabel.text = model.name
         self.menuCellNameLabel.textColor = .white
         self.menuCellIcon.image = getImageFromName(model.level - 1)
-        self.backgroundColor = model.isAvailable ? .clear : .black.withAlphaComponent(0.5)
+//        self.backgroundColor = model.isAvailable ? .clear : .black.withAlphaComponent(0.5)
+        self.isBlockedShadow.isHidden = model.isAvailable || (level2isOpen > 5 && model.level == 2)
+        self.isBlockedShadow.backgroundColor = .black.withAlphaComponent(0.5)
+        self.isBlockedShadow.layer.cornerRadius = 16
     }
     
     private func getImageFromName(_ level: Int) -> UIImage? {

@@ -16,7 +16,7 @@ class DeviceDetailsViewCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     
-    func configure(_ data: DeviceJson) {
-        self.deviceView.configure(data)
+    func configure(_ data: DeviceJson, _ type: DeviceType) {
+        self.deviceView.configure(data, type)
     }
 }
